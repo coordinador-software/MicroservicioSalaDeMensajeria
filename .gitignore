@@ -1,0 +1,115 @@
+# Compiled object files
+*.o
+*.obj
+*.lo
+*.la
+*.al
+*.lai
+*.laiz
+*.aliz
+
+# Compiled dynamic libraries
+*.so
+*.dylib
+*.dll
+*.dll.config
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Static libraries
+*.a
+*.lib
+
+# Compiled source files
+*.com
+*.class
+*.jar
+*.pyc
+*.dvi
+*.pdf
+
+# IDEs
+.vscode/
+.idea/
+*.sln*
+*.csproj.user
+*.csproj.DotSettings
+*.csproj.DotSettings.user
+*.csproj.DotSettings.global
+*.csproj.DotSettings.global.user
+
+# .NET Core specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# .NET Core Directory Build Props/Targets Files
+**/Directory.Build.props
+**/Directory.Build.targets
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.un~
+
+# Mono Auto Generated Files
+mono_crash.*
+*.pidb
+
+# VSTs and VS temporary files
+.vscode/
+.vs/
+.ipch/
+*.pidb
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Azure
+# Uncomment if your app is using Azure App Service
+# and you encounter an error listing the web apps.
+# See https://github.com/github/gitignore/pull/2455
+# AzureAppService/*
+# AZURE DEPLOYMENTS
+.scm/
+*.publishxml
+
+# IIS Logs
+IISLogs/
+*.log
+
+# User Secrets
+secrets.json
+
+# macOS files
+.DS_Store
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code files
+.vscode/
+
+# Visual Studio temporary files
+*.tmp
+*.temp
+*.tmpproj
+*.log
+*.userosscache
+*.sln.docstates
