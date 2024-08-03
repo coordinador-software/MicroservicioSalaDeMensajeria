@@ -13,6 +13,8 @@ namespace ChatAPI.Models.DB
         [Key]
         public Guid SALA_ID { get; set; }
         [Required]
+        public Guid SISTEMA_ID { get; set; }
+        [Required]
         public string NOMBRE_SALA { get; set; } = null!;
         public string? DESCRIPCION_SALA { get; set; }
         public bool ESTATUS { get; set; }
