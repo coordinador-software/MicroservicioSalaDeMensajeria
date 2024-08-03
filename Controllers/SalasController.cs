@@ -9,99 +9,99 @@ using ChatAPI.Models.DB;
 
 namespace ChatAPI.Controllers
 {
-    [Route("api/v1/[controller]")]
-    [ApiController]
-    public class SalasController : ControllerBase
-    {
-        private readonly DBCHAT _db;
+    //[Route("api/v1/[controller]")]
+    //[ApiController]
+    //public class SalasController : ControllerBase
+    //{
+    //    private readonly DBCHAT _db;
 
-        public SalasController(DBCHAT context)
-        {
-            _db = context;
-        }
+    //    public SalasController(DBCHAT context)
+    //    {
+    //        _db = context;
+    //    }
 
-        // GET: api/Salas
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SALAS>>> GetSalas()
-        {
-            return await _db.SALAS.ToListAsync();
-        }
+    //    // GET: api/Salas
+    //    [HttpGet]
+    //    public async Task<ActionResult<IEnumerable<SALAS>>> GetSalas()
+    //    {
+    //        return await _db.SALAS.ToListAsync();
+    //    }
 
-        // GET: api/Salas/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SALAS>> GetSalas(Guid id)
-        {
-            var sALAS = await _db.SALAS.FindAsync(id);
+    //    // GET: api/Salas/5
+    //    [HttpGet("{id}")]
+    //    public async Task<ActionResult<SALAS>> GetSalas(Guid id)
+    //    {
+    //        var sALAS = await _db.SALAS.FindAsync(id);
 
-            if (sALAS == null)
-            {
-                return NotFound();
-            }
+    //        if (sALAS == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-            return sALAS;
-        }
+    //        return sALAS;
+    //    }
 
-        // PUT: api/Salas/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSalas(Guid id, SALAS sALAS)
-        {
-            if (id != sALAS.SALA_ID)
-            {
-                return BadRequest();
-            }
+    //    // PUT: api/Salas/5
+    //    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    //    [HttpPut("{id}")]
+    //    public async Task<IActionResult> PutSalas(Guid id, SALAS sALAS)
+    //    {
+    //        if (id != sALAS.SALA_ID)
+    //        {
+    //            return BadRequest();
+    //        }
 
-            _db.Entry(sALAS).State = EntityState.Modified;
+    //        _db.Entry(sALAS).State = EntityState.Modified;
 
-            try
-            {
-                await _db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SalasExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+    //        try
+    //        {
+    //            await _db.SaveChangesAsync();
+    //        }
+    //        catch (DbUpdateConcurrencyException)
+    //        {
+    //            if (!SalasExists(id))
+    //            {
+    //                return NotFound();
+    //            }
+    //            else
+    //            {
+    //                throw;
+    //            }
+    //        }
 
-            return NoContent();
-        }
+    //        return NoContent();
+    //    }
 
-        // POST: api/Salas
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<SALAS>> PostSalas(SALAS sALAS)
-        {
-            _db.SALAS.Add(sALAS);
-            await _db.SaveChangesAsync();
+    //    // POST: api/Salas
+    //    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    //    [HttpPost]
+    //    public async Task<ActionResult<SALAS>> PostSalas(SALAS sALAS)
+    //    {
+    //        _db.SALAS.Add(sALAS);
+    //        await _db.SaveChangesAsync();
 
-            return CreatedAtAction("Sala", new { id = sALAS.SALA_ID }, sALAS);
-        }
+    //        return CreatedAtAction("Sala", new { id = sALAS.SALA_ID }, sALAS);
+    //    }
 
-        // DELETE: api/Salas/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSalas(Guid id)
-        {
-            var sALAS = await _db.SALAS.FindAsync(id);
-            if (sALAS == null)
-            {
-                return NotFound();
-            }
+    //    // DELETE: api/Salas/5
+    //    [HttpDelete("{id}")]
+    //    public async Task<IActionResult> DeleteSalas(Guid id)
+    //    {
+    //        var sALAS = await _db.SALAS.FindAsync(id);
+    //        if (sALAS == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-            _db.SALAS.Remove(sALAS);
-            await _db.SaveChangesAsync();
+    //        _db.SALAS.Remove(sALAS);
+    //        await _db.SaveChangesAsync();
 
-            return Ok("Eliminado con exito");
-        }
+    //        return Ok("Eliminado con exito");
+    //    }
 
-        private bool SalasExists(Guid id)
-        {
-            return _db.SALAS.Any(e => e.SALA_ID == id);
-        }
-    }
+    //    private bool SalasExists(Guid id)
+    //    {
+    //        return _db.SALAS.Any(e => e.SALA_ID == id);
+    //    }
+    //}
 }

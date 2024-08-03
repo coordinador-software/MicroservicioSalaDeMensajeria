@@ -1,10 +1,12 @@
 ﻿using ChatAPI.Models.DB;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
+using System.Net;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +21,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "ChatAPI", Version = "v1" });
 });
 
-builder.Services.AddDbContext<DBCHAT>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ChatAPI_Connection")));
+//builder.Services.AddDbContext<DBCHAT>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ChatAPI_Connection")));
 
 builder.Services.Configure<RequestLocalizationOptions>(
                opts =>
