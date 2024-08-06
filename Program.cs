@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using RHAPI.Interfaces;
+using RHAPI.Services;
 using System.Globalization;
 using System.Text;
 
@@ -58,9 +60,8 @@ builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
     .AllowCredentials();
 }));
 
-//builder.Services.AddScoped<IGRAPI, GRAPIService>();
-//builder.Services.AddScoped<INotificaciones, NotificacionesService>();
-//builder.Services.AddScoped<ISeguridad, SeguridadService>();
+builder.Services.AddScoped<IGRAPI, GRAPIService>();
+builder.Services.AddScoped<ISeguridad, SeguridadService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ChatAPI.Models.DB;
+using RHAPI.Interfaces;
+using static ChatAPI.Models.Classes;
 
 namespace ChatAPI.Controllers
 {
@@ -14,10 +16,12 @@ namespace ChatAPI.Controllers
     public class SistemasController : ControllerBase
     {
         private readonly DBCHAT _db;
+        private readonly ISeguridad _seguridad;
 
-        public SistemasController(DBCHAT context)
+        public SistemasController(DBCHAT context, ISeguridad seguridad)
         {
             _db = context;
+            _seguridad = seguridad;
         }
 
         // GET: api/Sistemas
@@ -104,10 +108,13 @@ namespace ChatAPI.Controllers
             return _db.SISTEMAS.Any(e => e.SISTEMA_ID == id);
         }
 
-        [HttpGet("HolaMundo")]
-        public ActionResult<string> GetHolaMundo()
+        [HttpGet("GetHolaMundo")]
+        public async Task<ActionResult<string>> GetHolaMundo()
         {
-            return "HolaMundo";
+            REQUEST_TOKEN x = await _seguridad.GetJWT(Guid.Parse("ebb59fc8-c409-45aa-b22c-4f40d0aa1162"), "Alejandro Altuzar");
+            var a = Guid.Parse("ebb59fc8-c409-45aa-b22c-4f40d0aa1162");
+            var y = await _seguridad.GetInfoUsuario(a);
+            return x.TOKEN;
         }
     }
 }
