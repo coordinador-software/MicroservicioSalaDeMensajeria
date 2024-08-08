@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ChatAPI.Models.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChatAPI.Models.DB
 {
@@ -36,7 +37,8 @@ namespace ChatAPI.Models.DB
 
                 entity.Property(e => e.FECHA_REGISTRO)
                    .HasPrecision(0)
-                   .HasColumnName("FECHA_REGISTRO");
+                   .HasColumnName("FECHA_REGISTRO")
+                .IsRequired();
 
                 entity.Property(e => e.ELIMINAR_SALAS)
                     .HasColumnName("ELIMINAR_SALAS");

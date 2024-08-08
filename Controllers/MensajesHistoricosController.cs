@@ -4,6 +4,7 @@ using ChatAPI.Models.DB;
 using Microsoft.AspNetCore.Authorization;
 using ChatAPI.Interfaces;
 using static ChatAPI.Models.Clases;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ChatAPI.Controllers
 {
@@ -22,9 +23,18 @@ namespace ChatAPI.Controllers
         }
 
         [HttpGet("{salaId}")]
-        public async Task<ActionResult<IEnumerable<MENSAJES>>> GetMensajes(Guid salaId)
+        public async Task<ActionResult<IEnumerable<MENSAJES_HISTORICOS>>> GetMensajes(Guid salaId)
         {
-            var messages = await _db.MENSAJES.Include(m => m.SALA).Where(m => m.SALA_ID == salaId && m.SALA.ESTATUS == false).ToListAsync();
+            SALAS? sala = await _db.SALAS.FindAsync(salaId);
+            if (sala == null)
+            {
+                return NotFound("ERROR: SALA_ID INEXISTENTE");
+            }
+            var messages = await _db.MENSAJES_HISTORICOS.Where(m => m.SALA_ID == salaId).ToListAsync();
+            if (!messages.IsNullOrEmpty() && sala.ESTATUS == true) //LA SALA DE CONVERSACIÓN DEBE ESTAR CERRADA
+            {
+                return NotFound("ERROR: PROBLEMA DE INTEGRIDAD, LA SALA DEBE ESTAR CERRADA PARA OBTENER LOS MENSAJES DEL HISTORICO");
+            }
             return Ok(messages);
         }
 

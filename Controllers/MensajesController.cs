@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.SignalR;
 using ChatAPI.Helpers;
 using ChatAPI.Interfaces;
 using static ChatAPI.Models.Clases;
-using ChatAPI.Services;
 
 namespace ChatAPI.Controllers
 {
@@ -63,21 +62,27 @@ namespace ChatAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error: Falla al guardar el mensaje");
             }
 
-            return CreatedAtAction(nameof(GetMensajes), new { id = mensaje.MENSAJE_ID }, mensaje);
+            return Ok(mensaje);
         }
 
-        //// POST: api/Mensajes
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/Mensajes
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPost]
-        //public async Task<ActionResult<MENSAJES>> PostArchivo(string json)
+        //public async Task<ActionResult<MENSAJES>> PostArchivo(IFormFile archivo, Guid salaId)
         //{
+        //    if (archivo == null || archivo.Length == 0)
+        //    {
+        //        return BadRequest("No se ha proporcionado un archivo o el archivo está vacío.");
+        //    }
 
 
-        //    MENSAJES archivoM {
+
+        //    MENSAJES mensaje {
+
 
         //    };
         //    _db.MENSAJES.Add(mensaje);
-        //    JsonSerializer.Deserialize<WeatherForecast>(json);
+        //   // JsonSerializer.Deserialize<WeatherForecast>(json);
         //    try
         //    {
         //        await _db.SaveChangesAsync();
@@ -93,34 +98,35 @@ namespace ChatAPI.Controllers
 
         // PUT: api/Mensajes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMensajes(Guid id, MENSAJES mensajes)
-        {
-            if (id != mensajes.MENSAJE_ID)
-            {
-                return BadRequest();
-            }
 
-            _db.Entry(mensajes).State = EntityState.Modified;
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutMensajes(Guid id, MENSAJES mensajes)
+        //{
+        //    if (id != mensajes.MENSAJE_ID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            try
-            {
-                await _db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MensajesExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    _db.Entry(mensajes).State = EntityState.Modified;
 
-            return Ok("Actualizado con exito");
-        }
+        //    try
+        //    {
+        //        await _db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!MensajesExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return Ok("Actualizado con exito");
+        //}
 
         // DELETE: api/Mensajes/5
         [HttpDelete("{id}")]
@@ -149,9 +155,9 @@ namespace ChatAPI.Controllers
             }
         }
 
-        private bool MensajesExists(Guid id)
-        {
-            return _db.MENSAJES.Any(e => e.MENSAJE_ID == id);
-        }
+        //private bool MensajesExists(Guid id)
+        //{
+        //    return _db.MENSAJES.Any(e => e.MENSAJE_ID == id);
+        //}
     }
 }

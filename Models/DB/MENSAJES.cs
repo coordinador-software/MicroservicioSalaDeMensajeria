@@ -12,7 +12,7 @@ namespace ChatAPI.Models.DB
         public Guid USUARIO_SEG_ID { get; set; }
         [Required]
         public string MENSAJE { get; set; } = null!;
-        public DateTime FECHA_REGISTRO { get; set; }
+        public DateTime FECHA_REGISTRO { get; set; } = DateTime.Now;
         [Required]
         public string TIPO_ARCHIVO { get; set; } = null!;
         public bool ELIMINADO { get; set; }

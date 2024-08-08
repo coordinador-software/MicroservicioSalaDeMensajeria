@@ -28,7 +28,10 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDbContext<DBCHAT>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ChatAPI_Connection")));
 
-
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null; // Mantiene la capitalización original de las propiedades
+});
 
 builder.Services.Configure<RequestLocalizationOptions>(
                opts =>

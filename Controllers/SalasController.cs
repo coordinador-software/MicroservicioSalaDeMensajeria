@@ -47,7 +47,7 @@ namespace ChatAPI.Controllers
             {
                 return NotFound();
             }
-            return sala;
+            return Ok(sala);
         }
 
         // PUT: api/Salas/5
@@ -59,7 +59,6 @@ namespace ChatAPI.Controllers
             {
                 return BadRequest();
             }
-
             _db.Entry(salas).State = EntityState.Modified;
 
             try
@@ -84,12 +83,12 @@ namespace ChatAPI.Controllers
         // POST: api/Salas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<SALAS>> PostSalas(SALAS salas)
+        public async Task<ActionResult<SALAS>> PostSalas(SALAS sala)
         {
-            _db.SALAS.Add(salas);
+            _db.SALAS.Add(sala);
             await _db.SaveChangesAsync();
 
-            return CreatedAtAction("Sala", new { id = salas.SALA_ID }, salas);
+            return Ok(sala);
         }
 
         // SOLO SI ELIMINAR_SALAS ESTA ACTIVO

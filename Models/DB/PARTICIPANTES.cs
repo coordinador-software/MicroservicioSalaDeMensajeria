@@ -10,7 +10,7 @@ namespace ChatAPI.Models.DB
         public Guid SALA_ID { get; set; }
         [Required]
         public Guid USUARIO_SEG_ID { get; set; }
-        public DateTime FECHA_REGISTRO { get; set; }
+        public DateTime FECHA_REGISTRO { get; set; } = DateTime.Now;
         public bool ELIMINADO { get; set; }
         public virtual SALAS SALA { get; set; } = null!;
     }

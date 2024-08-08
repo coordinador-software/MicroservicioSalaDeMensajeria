@@ -18,7 +18,7 @@ namespace ChatAPI.Models.DB
         public string NOMBRE_SALA { get; set; } = null!;
         public string? DESCRIPCION_SALA { get; set; }
         public bool ESTATUS { get; set; }
-        public DateTime FECHA_REGISTRO { get; set; }
+        public DateTime FECHA_REGISTRO { get; set; } = DateTime.Now;
         public DateTime? FECHA_MODIFICACION { get; set; }
         [Required]
         public string USUARIO_REGISTRO { get; set; } = null!;
