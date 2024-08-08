@@ -42,7 +42,8 @@ namespace ChatAPI.Controllers
         [HttpGet("GetSala/{id}")]
         public async Task<ActionResult<SALAS>> GetSala(Guid id)
         {
-            SALAS? sala = await _db.SALAS.Include(s => s.PARTICIPANTES).Include(s => s.MENSAJES).Include(s => s.MENSAJES_HISTORICOS).Include(s => s.SISTEMA).FirstOrDefaultAsync(s => s.SALA_ID == id);
+            SALAS? sala = await _db.SALAS.FirstOrDefaultAsync(s => s.SALA_ID == id);
+            //SALAS? sala = await _db.SALAS.Include(s => s.PARTICIPANTES).Include(s => s.MENSAJES).Include(s => s.MENSAJES_HISTORICOS).Include(s => s.SISTEMA).FirstOrDefaultAsync(s => s.SALA_ID == id);
             if (sala == null)
             {
                 return NotFound();
@@ -85,6 +86,10 @@ namespace ChatAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<SALAS>> PostSalas(SALAS sala)
         {
+            
+            if (!_db.SISTEMAS.Any(s => s.SISTEMA_ID == sala.SISTEMA_ID)) {
+                return NotFound("ERROR: SISTEMA_ID INEXISTENTE");
+            }
             _db.SALAS.Add(sala);
             await _db.SaveChangesAsync();
 

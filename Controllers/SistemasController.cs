@@ -50,14 +50,14 @@ namespace ChatAPI.Controllers
         // PUT: api/Sistemas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSistemas(Guid id, SISTEMAS sistemas)
+        public async Task<IActionResult> PutSistemas(Guid id, SISTEMAS sistema)
         {
-            if (id != sistemas.SISTEMA_ID)
+            if (id != sistema.SISTEMA_ID)
             {
                 return BadRequest();
             }
 
-            _db.Entry(sistemas).State = EntityState.Modified;
+            _db.Entry(sistema).State = EntityState.Modified;
 
             try
             {
@@ -75,7 +75,7 @@ namespace ChatAPI.Controllers
                 }
             }
 
-            return Ok("Actualizado con exito");
+            return Ok(sistema);
         }
 
         // POST: api/Sistemas
@@ -99,6 +99,7 @@ namespace ChatAPI.Controllers
                 return NotFound();
             }
 
+            //LAS SALAS A SU DISPOSICIÓN CAMBIARLAS A TRUE
             sistemas.ELIMINADO = true;
             await _db.SaveChangesAsync();
 
