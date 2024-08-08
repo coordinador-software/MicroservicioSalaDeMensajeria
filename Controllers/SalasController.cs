@@ -42,8 +42,8 @@ namespace ChatAPI.Controllers
         [HttpGet("GetSala/{id}")]
         public async Task<ActionResult<SALAS>> GetSala(Guid id)
         {
-            SALAS? sala = await _db.SALAS.FirstOrDefaultAsync(s => s.SALA_ID == id);
-            //SALAS? sala = await _db.SALAS.Include(s => s.PARTICIPANTES).Include(s => s.MENSAJES).Include(s => s.MENSAJES_HISTORICOS).Include(s => s.SISTEMA).FirstOrDefaultAsync(s => s.SALA_ID == id);
+            //SALAS? sala = await _db.SALAS.FirstOrDefaultAsync(s => s.SALA_ID == id);
+            SALAS? sala = await _db.SALAS.Include(s => s.SISTEMA).FirstOrDefaultAsync(s => s.SALA_ID == id);
             if (sala == null)
             {
                 return NotFound();

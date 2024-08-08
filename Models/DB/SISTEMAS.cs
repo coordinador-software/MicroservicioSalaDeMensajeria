@@ -10,9 +10,9 @@ namespace ChatAPI.Models.DB
         }
         [Key]
         public Guid SISTEMA_ID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El campo NOMBRE_SISTEMA es obligatorio")]
         public string NOMBRE_SISTEMA { get; set; } = null!;
-        [Required]
+        [Required(ErrorMessage = "El campo API_KEY es obligatorio.")]
         public string API_KEY { get; set; } = null!;
         public DateTime FECHA_REGISTRO { get; set; } = DateTime.Now;
         public bool ELIMINAR_SALAS { get; set; }

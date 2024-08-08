@@ -24,7 +24,7 @@ namespace ChatAPI.Models.DB
         public string USUARIO_REGISTRO { get; set; } = null!;
         public string? USUARIO_MODIFICACION { get; set; }
         public bool ELIMINADO { get; set; }
-        public virtual SISTEMAS? SISTEMA { get; set; }
+        public virtual SISTEMAS SISTEMA { get; set; } = null!;
         public virtual ICollection<PARTICIPANTES> PARTICIPANTES { get; set; }
         public virtual ICollection<MENSAJES> MENSAJES { get; set; }
         public virtual ICollection<MENSAJES_HISTORICOS> MENSAJES_HISTORICOS { get; set; }

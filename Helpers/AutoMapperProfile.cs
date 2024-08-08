@@ -12,6 +12,9 @@ namespace ChatAPI.Helpers
             CreateMap<MENSAJES_HISTORICOS, MENSAJES_DTO>().ReverseMap();
 
             CreateMap<SISTEMAS, SISTEMAS_DTO>().ReverseMap();
+
+            CreateMap<SALAS, SALAS_DTO>().ReverseMap();
+            CreateMap<PARTICIPANTES, PARTICIPANTES_DTO>().ReverseMap();
         }
     }
 }
