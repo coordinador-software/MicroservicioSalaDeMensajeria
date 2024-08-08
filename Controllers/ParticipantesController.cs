@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ChatAPI.Models.DB;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ChatAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class ParticipantesController : ControllerBase
@@ -33,27 +28,27 @@ namespace ChatAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PARTICIPANTES>> GetParticipantes(Guid id)
         {
-            var pARTICIPANTES = await _db.PARTICIPANTES.FindAsync(id);
+            var participantes = await _db.PARTICIPANTES.FindAsync(id);
 
-            if (pARTICIPANTES == null)
+            if (participantes == null)
             {
                 return NotFound();
             }
 
-            return pARTICIPANTES;
+            return participantes;
         }
 
         // PUT: api/Participantes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutParticipantes(Guid id, PARTICIPANTES pARTICIPANTES)
+        public async Task<IActionResult> PutParticipantes(Guid id, PARTICIPANTES participantes)
         {
-            if (id != pARTICIPANTES.PARTICIPANTE_ID)
+            if (id != participantes.PARTICIPANTE_ID)
             {
                 return BadRequest();
             }
 
-            _db.Entry(pARTICIPANTES).State = EntityState.Modified;
+            _db.Entry(participantes).State = EntityState.Modified;
 
             try
             {
@@ -77,25 +72,25 @@ namespace ChatAPI.Controllers
         // POST: api/Participantes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PARTICIPANTES>> PostParticipantes(PARTICIPANTES pARTICIPANTES)
+        public async Task<ActionResult<PARTICIPANTES>> PostParticipantes(PARTICIPANTES participantes)
         {
-            _db.PARTICIPANTES.Add(pARTICIPANTES);
+            _db.PARTICIPANTES.Add(participantes);
             await _db.SaveChangesAsync();
 
-            return CreatedAtAction("Participante", new { id = pARTICIPANTES.PARTICIPANTE_ID }, pARTICIPANTES);
+            return CreatedAtAction("Participante", new { id = participantes.PARTICIPANTE_ID }, participantes);
         }
 
         // DELETE: api/Participantes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePARTICIPANTES(Guid id)
+        public async Task<IActionResult> DeleteParticipantes(Guid id)
         {
-            var pARTICIPANTES = await _db.PARTICIPANTES.FindAsync(id);
-            if (pARTICIPANTES == null)
+            var participantes = await _db.PARTICIPANTES.FindAsync(id);
+            if (participantes == null)
             {
                 return NotFound();
             }
 
-            _db.PARTICIPANTES.Remove(pARTICIPANTES);
+            participantes.ELIMINADO = true;
             await _db.SaveChangesAsync();
 
             return Ok("Eliminado con exito");

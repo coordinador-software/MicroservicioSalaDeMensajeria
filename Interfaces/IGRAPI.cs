@@ -27,7 +27,7 @@ namespace RHAPI.Interfaces
         /// <param name="cuerpo">Cuerpo del correo electrónico.</param>
         /// <param name="email">Correo electrónico del remitente. Si no se especifica, se utilizará el correo electrónico predeterminado.</param>
         /// <returns>Devuelve verdadero si la notificación se envió correctamente, de lo contrario, falso.</returns>
-        public Task<bool> SendMail(string emails ,string asunto,string cuerpo,string? email);
+        //public Task<bool> SendMail(string emails ,string asunto,string cuerpo,string? email);
         
         /// <summary>
         /// Envía un mensaje de WhatsApp al número de teléfono especificado.
@@ -35,7 +35,7 @@ namespace RHAPI.Interfaces
         /// <param name="telefono">Número de teléfono al que se enviará el mensaje. Debe incluir el código de país y el número de teléfono sin espacios ni guiones.</param>
         /// <param name="mensaje">Mensaje que se enviará por WhatsApp.</param>
         /// <returns>Devuelve verdadero si el mensaje se envió correctamente, de lo contrario, falso.</returns>
-        public Task<bool> SendWhatsapp(string mensaje, string telefono);
+        //public Task<bool> SendWhatsapp(string mensaje, string telefono);
 
         /// <summary>
         /// Envía una notificación push a través de Firebase Cloud Messaging a los tokens de dispositivos especificados.
@@ -44,7 +44,7 @@ namespace RHAPI.Interfaces
         /// <param name="body">Cuerpo de la notificación push.</param>
         /// <param name="tokens">Lista de tokens de dispositivos a los que se enviará la notificación push.</param>
         /// <returns>Devuelve verdadero si la notificación push se envió correctamente, de lo contrario, falso.</returns>
-        public Task<bool> SendFirebase(string title, string body, string[] tokens);
+        //public Task<bool> SendFirebase(string title, string body, string[] tokens);
         /// <summary>
         /// Envía una notificación push a través de Firebase Cloud Messaging a los tokens de dispositivos especificados.
         /// </summary>
@@ -53,7 +53,7 @@ namespace RHAPI.Interfaces
         /// <param name="tokens">Lista de tokens de dispositivos a los que se enviará la notificación push.</param>
         /// <param name="data">Datos adicionales que se enviarán con la notificación push.</param>
         /// <returns>Devuelve verdadero si la notificación push se envió correctamente, de lo contrario, falso.</returns>
-        public Task<bool> SendFirebase(string title, string body, string[] tokens, Dictionary<string, string> data);
+        //public Task<bool> SendFirebase(string title, string body, string[] tokens, Dictionary<string, string> data);
         /// <summary>
         /// Envía una notificación push a través de Firebase Cloud Messaging al token de dispositivo especificado.
         /// </summary>
@@ -61,7 +61,7 @@ namespace RHAPI.Interfaces
         /// <param name="body">Cuerpo de la notificación push.</param>
         /// <param name="token">Token del dispositivo al que se enviará la notificación push.</param>
         /// <returns>Devuelve verdadero si la notificación push se envió correctamente, de lo contrario, falso.</returns>
-        public Task<bool> SendFirebase(string title, string body, string token);
+        //public Task<bool> SendFirebase(string title, string body, string token);
 
         /// <summary>
         /// Envía una notificación push a través de Firebase Cloud Messaging al token de dispositivo especificado.
@@ -71,9 +71,9 @@ namespace RHAPI.Interfaces
         /// <param name="token">Token del dispositivo al que se enviará la notificación push.</param>
         /// <param name="data">Datos adicionales que se enviarán con la notificación push.</param>
         /// <returns>Devuelve verdadero si la notificación push se envió correctamente, de lo contrario, falso.</returns>
-        public Task<bool> SendFirebase(string title, string body, string token,Dictionary<string, string> data);
+        //public Task<bool> SendFirebase(string title, string body, string token,Dictionary<string, string> data);
 
-        public Task<bool> SendNotifications(List<USUARIO_INFO> usersList, List<string> tokensFB, string asunto, string body);
-        public Task<bool> SendNotifications(USUARIO_INFO user, List<string> tokensFB, string asunto, string body);
+        //public Task<bool> SendNotifications(List<USUARIO_INFO> usersList, List<string> tokensFB, string asunto, string body);
+        //public Task<bool> SendNotifications(USUARIO_INFO user, List<string> tokensFB, string asunto, string body);
     }
 }

@@ -35,20 +35,22 @@ namespace ChatAPI.Models.DB
                   .IsRequired();
 
                 entity.Property(e => e.FECHA_REGISTRO)
-                   .HasColumnName("FECHA_REGISTRO")
-                   .IsRequired();
+                   .HasPrecision(0)
+                   .HasColumnName("FECHA_REGISTRO");
 
                 entity.Property(e => e.ELIMINAR_SALAS)
-                    .HasColumnName("ELIMINAR_SALAS")
-                    .IsRequired();
+                    .HasColumnName("ELIMINAR_SALAS");
 
                 entity.Property(e => e.ELIMINAR_MENSAJES)
-                    .HasColumnName("ELIMINAR_MENSAJES")
-                    .IsRequired();
+                    .HasColumnName("ELIMINAR_MENSAJES");
 
                 entity.Property(e => e.ELIMINAR_ARCHIVOS)
-                    .HasColumnName("ELIMINAR_ARCHIVOS")
-                    .IsRequired();
+                    .HasColumnName("ELIMINAR_ARCHIVOS");
+
+                entity.Property(e => e.ELIMINADO)
+                    .HasColumnName("ELIMINADO");
+
+                entity.HasQueryFilter(s => !s.ELIMINADO);
 
             });
             modelBuilder.Entity<SALAS>(entity =>
@@ -91,11 +93,16 @@ namespace ChatAPI.Models.DB
                     .HasColumnName("USUARIO_MODIFICACION")
                     .IsRequired(false);
 
+                entity.Property(e => e.ELIMINADO)
+                   .HasColumnName("ELIMINADO");
+
                 entity.HasOne(e => e.SISTEMA)
                     .WithMany(e => e.SALAS)
                     .HasForeignKey(x => x.SISTEMA_ID)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("FK_SALAS_SISTEMAS");
+
+                entity.HasQueryFilter(s => !s.ELIMINADO);
             });
 
             modelBuilder.Entity<PARTICIPANTES>(entity =>
@@ -116,13 +123,16 @@ namespace ChatAPI.Models.DB
                    .HasColumnName("FECHA_REGISTRO")
                    .IsRequired();
 
+                entity.Property(e => e.ELIMINADO)
+                   .HasColumnName("ELIMINADO");
+
                 entity.HasOne(e => e.SALA)
                     .WithMany(e => e.PARTICIPANTES)
                     .HasForeignKey(x => x.SALA_ID)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("FK_PARTICIPANTES_SALAS");
 
-
+                entity.HasQueryFilter(p => !p.ELIMINADO);
             });
 
             modelBuilder.Entity<MENSAJES>(entity =>
@@ -151,11 +161,16 @@ namespace ChatAPI.Models.DB
                     .HasColumnName("TIPO_ARCHIVO")
                     .IsRequired();
 
+                entity.Property(e => e.ELIMINADO)
+                   .HasColumnName("ELIMINADO");
+
                 entity.HasOne(e => e.SALA)
                     .WithMany(e => e.MENSAJES)
                     .HasForeignKey(x => x.SALA_ID)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("FK_MENSAJES_SALAS");
+
+                entity.HasQueryFilter(m => !m.ELIMINADO);
             });
 
             modelBuilder.Entity<MENSAJES_HISTORICOS>(entity =>
@@ -184,11 +199,16 @@ namespace ChatAPI.Models.DB
                     .HasColumnName("TIPO_ARCHIVO")
                     .IsRequired();
 
+                entity.Property(e => e.ELIMINADO)
+                   .HasColumnName("ELIMINADO");
+
                 entity.HasOne(e => e.SALA)
                     .WithMany(e => e.MENSAJES_HISTORICOS)
                     .HasForeignKey(x => x.SALA_ID)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .OnDelete(DeleteBehavior.NoAction)
                     .HasConstraintName("FK_MENSAJES_HISTORICOS_SALAS");
+
+                entity.HasQueryFilter(m => !m.ELIMINADO);
             });
         }
 

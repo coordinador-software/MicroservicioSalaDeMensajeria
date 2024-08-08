@@ -258,3 +258,4 @@ C:\Users\Usuario\Documents\DV_ALEJANDRO\PruebaWebDev\ChatAPI\bin\Debug\net8.0\Mi
 C:\Users\Usuario\Documents\DV_ALEJANDRO\PruebaWebDev\ChatAPI\bin\Debug\net8.0\Microsoft.Extensions.Features.dll
 C:\Users\Usuario\Documents\DV_ALEJANDRO\PruebaWebDev\ChatAPI\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\Usuario\Documents\DV_ALEJANDRO\PruebaWebDev\ChatAPI\bin\Debug\net8.0\RestSharp.dll
+C:\Users\Usuario\Documents\DV_ALEJANDRO\PruebaWebDev\ChatAPI\bin\Debug\net8.0\AutoMapper.dll

@@ -11,6 +11,7 @@ namespace ChatAPI.Models.DB
         [Required]
         public Guid USUARIO_SEG_ID { get; set; }
         public DateTime FECHA_REGISTRO { get; set; }
+        public bool ELIMINADO { get; set; }
         public virtual SALAS SALA { get; set; } = null!;
     }
 }

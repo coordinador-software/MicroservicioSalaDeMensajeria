@@ -1,4 +1,7 @@
-﻿using ChatAPI.Models.DB;
+﻿using ChatAPI.Helpers;
+using ChatAPI.Interfaces;
+using ChatAPI.Models.DB;
+using ChatAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +17,9 @@ builder.WebHost.UseUrls("http://localhost:5188", "http://192.168.6.98:5188");
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -22,6 +27,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddDbContext<DBCHAT>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ChatAPI_Connection")));
+
+
 
 builder.Services.Configure<RequestLocalizationOptions>(
                opts =>
@@ -32,24 +39,24 @@ builder.Services.Configure<RequestLocalizationOptions>(
                    opts.SupportedUICultures = supportedCultures;
                });
 
-builder.Services.AddAuthentication(option =>
-{
-    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = false,// validacion del emisor de la petici�n falso
-        ValidateAudience = false,// validacion del servidor de entrada falso
-        ValidateIssuerSigningKey = true,// validacion de la firma del token true
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:TokenJWT").Value!)),
-        ValidateLifetime = true,// valida tiempo de expiracion del token true
-        RequireExpirationTime = true,// requerir en el token exista una fecha de expiraci�n true 
-        ClockSkew = TimeSpan.Zero // Forzar que el token expire exactamente cuando el tiempo de expieraci�n del mismo token indique
-    };
-});
+//builder.Services.AddAuthentication(option =>
+//{
+//    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//}).AddJwtBearer(options =>
+//{
+//    options.RequireHttpsMetadata = false;
+//    options.TokenValidationParameters = new TokenValidationParameters
+//    {
+//        ValidateIssuer = false,// validacion del emisor de la petici�n falso
+//        ValidateAudience = false,// validacion del servidor de entrada falso
+//        ValidateIssuerSigningKey = true,// validacion de la firma del token true
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:TokenJWT").Value!)),
+//        ValidateLifetime = true,// valida tiempo de expiracion del token true
+//        RequireExpirationTime = true,// requerir en el token exista una fecha de expiraci�n true 
+//        ClockSkew = TimeSpan.Zero // Forzar que el token expire exactamente cuando el tiempo de expieraci�n del mismo token indique
+//    };
+//});
 
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
 {
@@ -60,11 +67,10 @@ builder.Services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
     .AllowCredentials();
 }));
 
+builder.Services.AddScoped<IChat, ChatService>();
 builder.Services.AddScoped<IGRAPI, GRAPIService>();
-builder.Services.AddScoped<ISeguridad, SeguridadService>();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -77,6 +83,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.MapHub<ChatHub>("/chathub");
 app.MapControllers();
+
+
 
 app.Run();

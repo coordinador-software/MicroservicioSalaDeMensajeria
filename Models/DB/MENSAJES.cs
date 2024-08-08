@@ -15,6 +15,7 @@ namespace ChatAPI.Models.DB
         public DateTime FECHA_REGISTRO { get; set; }
         [Required]
         public string TIPO_ARCHIVO { get; set; } = null!;
+        public bool ELIMINADO { get; set; }
         public virtual SALAS SALA { get; set; } = null!;
     }
 }

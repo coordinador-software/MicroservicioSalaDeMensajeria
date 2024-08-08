@@ -20,7 +20,7 @@ namespace RHAPI.Services
         {
             clientOptions = new RestClientOptions(_grapi.URL_GRAPI)
             {
-                MaxTimeout = -1
+                Timeout = Timeout.InfiniteTimeSpan
             };
             client = new RestClient(clientOptions);
 
@@ -255,142 +255,142 @@ namespace RHAPI.Services
                 throw new Exception(e.Message);
             }
         }
-        public async Task<bool> SendMail(string emails, string asunto, string cuerpo, string? email)
-        {
-            try
-            {
-                var parameters = new Dictionary<string, string>
-                {
-                    { "emails", emails },
-                    { "asunto", asunto },
-                    { "cuerpo", cuerpo },
+        //public async Task<bool> SendMail(string emails, string asunto, string cuerpo, string? email)
+        //{
+        //    try
+        //    {
+        //        var parameters = new Dictionary<string, string>
+        //        {
+        //            { "emails", emails },
+        //            { "asunto", asunto },
+        //            { "cuerpo", cuerpo },
 
-                };
+        //        };
 
-                if (email != null)
-                {
-                    parameters.Add("email", email);
-                }
-                RestResponse response = await PostRequest(_grapi.NOTIFICAION_EMAIL, parameters);
-                return response.IsSuccessStatusCode;
-
-
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-        public async Task<bool> SendWhatsapp(string mensaje, string telefono)
-        {
-            try
-            {
-                var parameters = new Dictionary<string, string>
-                {
-                    { "telefono", telefono },
-                    { "mensaje", mensaje }
-                };
-                RestResponse response = await PostRequest(_grapi.NOTIFICAION_WHATSAPP, parameters);
-                return response.IsSuccessStatusCode;
-
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-        public async Task<bool> SendFirebase(string title, string body, string[] tokens)
-        {
-            try
-            {
-                SendFirebase sendFirebase = new()
-                {
-                    title = title,
-                    body = body,
-                    tokens = tokens
-                };
+        //        if (email != null)
+        //        {
+        //            parameters.Add("email", email);
+        //        }
+        //        RestResponse response = await PostRequest(_grapi.NOTIFICAION_EMAIL, parameters);
+        //        return response.IsSuccessStatusCode;
 
 
-                RestResponse response = await PostRequest(_grapi.NOTIFICAION_FIREBASE, sendFirebase);
-                return response.IsSuccessStatusCode;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception(e.Message);
+        //    }
+        //}
+
+        //public async Task<bool> SendWhatsapp(string mensaje, string telefono)
+        //{
+        //    try
+        //    {
+        //        var parameters = new Dictionary<string, string>
+        //        {
+        //            { "telefono", telefono },
+        //            { "mensaje", mensaje }
+        //        };
+        //        RestResponse response = await PostRequest(_grapi.NOTIFICAION_WHATSAPP, parameters);
+        //        return response.IsSuccessStatusCode;
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception(e.Message);
+        //    }
+        //}
+
+        //public async Task<bool> SendFirebase(string title, string body, string[] tokens)
+        //{
+        //    try
+        //    {
+        //        SendFirebase sendFirebase = new()
+        //        {
+        //            title = title,
+        //            body = body,
+        //            tokens = tokens
+        //        };
 
 
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
+        //        RestResponse response = await PostRequest(_grapi.NOTIFICAION_FIREBASE, sendFirebase);
+        //        return response.IsSuccessStatusCode;
 
-        public async Task<bool> SendFirebase(string title, string body, string[] tokens, Dictionary<string, string> data)
-        {
-            try
-            {
-                //convertir el diccionario en json
 
-                SendFirebase sendFirebase = new()
-                {
-                    title = title,
-                    body = body,
-                    tokens = tokens,
-                    data = JsonConvert.SerializeObject(data)
-                };
-                RestResponse response = await PostRequest(_grapi.NOTIFICAION_FIREBASE_DATA, sendFirebase);
-                return response.IsSuccessStatusCode;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception(e.Message);
+        //    }
+        //}
 
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
+        //public async Task<bool> SendFirebase(string title, string body, string[] tokens, Dictionary<string, string> data)
+        //{
+        //    try
+        //    {
+        //        //convertir el diccionario en json
 
-        public async Task<bool> SendFirebase(string title, string body, string token)
-        {
-            try
-            {
-                SendFirebaseSingleToken sendFirebase = new()
-                {
-                    title = title,
-                    body = body,
-                    token = token
-                };
+        //        SendFirebase sendFirebase = new()
+        //        {
+        //            title = title,
+        //            body = body,
+        //            tokens = tokens,
+        //            data = JsonConvert.SerializeObject(data)
+        //        };
+        //        RestResponse response = await PostRequest(_grapi.NOTIFICAION_FIREBASE_DATA, sendFirebase);
+        //        return response.IsSuccessStatusCode;
 
-                RestResponse response = await PostRequest(_grapi.NOTIFICAION_FIREBASE_SINGLE_DATA, sendFirebase);
-                return response.IsSuccessStatusCode;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception(e.Message);
+        //    }
+        //}
 
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
+        //public async Task<bool> SendFirebase(string title, string body, string token)
+        //{
+        //    try
+        //    {
+        //        SendFirebaseSingleToken sendFirebase = new()
+        //        {
+        //            title = title,
+        //            body = body,
+        //            token = token
+        //        };
 
-        public async Task<bool> SendFirebase(string title, string body, string token, Dictionary<string, string> data)
-        {
-            try
-            {
-                //convertir el diccionario en json
-                var json = JsonConvert.SerializeObject(data);
+        //        RestResponse response = await PostRequest(_grapi.NOTIFICAION_FIREBASE_SINGLE_DATA, sendFirebase);
+        //        return response.IsSuccessStatusCode;
 
-                SendFirebaseSingleToken sendFirebase = new()
-                {
-                    title = title,
-                    body = body,
-                    token = token,
-                    data = json
-                };
-                RestResponse response = await PostRequest(_grapi.NOTIFICAION_FIREBASE_SINGLE, sendFirebase);
-                return response.IsSuccessStatusCode;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception(e.Message);
+        //    }
+        //}
 
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
+        //public async Task<bool> SendFirebase(string title, string body, string token, Dictionary<string, string> data)
+        //{
+        //    try
+        //    {
+        //        //convertir el diccionario en json
+        //        var json = JsonConvert.SerializeObject(data);
+
+        //        SendFirebaseSingleToken sendFirebase = new()
+        //        {
+        //            title = title,
+        //            body = body,
+        //            token = token,
+        //            data = json
+        //        };
+        //        RestResponse response = await PostRequest(_grapi.NOTIFICAION_FIREBASE_SINGLE, sendFirebase);
+        //        return response.IsSuccessStatusCode;
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception(e.Message);
+        //    }
+        //}
 
         //funcion para cetralizar el envio de archivos
 
@@ -500,80 +500,80 @@ namespace RHAPI.Services
             }
         }
 
-        public async Task<bool> SendNotifications(List<USUARIO_INFO> usersList, List<string> tokensFB, string asunto, string body)
-        {
-            //Envio de correos electronicos
-            try
-            {
-                if (usersList.Count > 0)
-                {
-                    //agrupar los correos en un solo string divididos por ;
-                    var mails = string.Join(";", usersList.Select(x => x.EMAIL));
-                    await SendMail(mails, asunto, body, null);
-                }
-            }
-            catch (Exception) { }
+        //public async Task<bool> SendNotifications(List<USUARIO_INFO> usersList, List<string> tokensFB, string asunto, string body)
+        //{
+        //    //Envio de correos electronicos
+        //    try
+        //    {
+        //        if (usersList.Count > 0)
+        //        {
+        //            //agrupar los correos en un solo string divididos por ;
+        //            var mails = string.Join(";", usersList.Select(x => x.EMAIL));
+        //            await SendMail(mails, asunto, body, null);
+        //        }
+        //    }
+        //    catch (Exception) { }
 
-            //Envio de mensajes de Whatsapp
-            try
-            {
-                foreach (var user in usersList)
-                {
-                    if (!user.CELULAR.IsNullOrEmpty())
-                    {
-                        await SendWhatsapp(body, user.CELULAR!);
-                    }
-                }
-            }
-            catch (Exception) { }
+        //    //Envio de mensajes de Whatsapp
+        //    try
+        //    {
+        //        foreach (var user in usersList)
+        //        {
+        //            if (!user.CELULAR.IsNullOrEmpty())
+        //            {
+        //                await SendWhatsapp(body, user.CELULAR!);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception) { }
 
-            //Envio de notificaciones push
-            try
-            {
-                if (!tokensFB.IsNullOrEmpty())
-                {
-                    await SendFirebase(asunto, body, tokensFB.ToArray());
-                }
-            }
-            catch (Exception) { }
+        //    //Envio de notificaciones push
+        //    try
+        //    {
+        //        if (!tokensFB.IsNullOrEmpty())
+        //        {
+        //            await SendFirebase(asunto, body, tokensFB.ToArray());
+        //        }
+        //    }
+        //    catch (Exception) { }
 
-            return true;
-        }
+        //    return true;
+        //}
 
-        public async Task<bool> SendNotifications(USUARIO_INFO user, List<string> tokensFB, string asunto, string body)
-        {
-            //Envio de correos electronicos
-            try
-            {
-                if (user.EMAIL != null)
-                {
-                    await SendMail(user.EMAIL, asunto, body, null);
-                }
-            }
-            catch (Exception) { }
+        //public async Task<bool> SendNotifications(USUARIO_INFO user, List<string> tokensFB, string asunto, string body)
+        //{
+        //    //Envio de correos electronicos
+        //    try
+        //    {
+        //        if (user.EMAIL != null)
+        //        {
+        //            await SendMail(user.EMAIL, asunto, body, null);
+        //        }
+        //    }
+        //    catch (Exception) { }
 
-            //Envio de mensajes de Whatsapp
-            try
-            {
-                if (!user.CELULAR.IsNullOrEmpty())
-                {
-                    await SendWhatsapp(body, user.CELULAR!);
-                }
-            }
-            catch (Exception) { }
+        //    //Envio de mensajes de Whatsapp
+        //    try
+        //    {
+        //        if (!user.CELULAR.IsNullOrEmpty())
+        //        {
+        //            await SendWhatsapp(body, user.CELULAR!);
+        //        }
+        //    }
+        //    catch (Exception) { }
 
-            //Envio de notificaciones push
-            try
-            {
-                if (!tokensFB.IsNullOrEmpty())
-                {
-                    await SendFirebase(asunto, body, tokensFB.ToArray());
-                }
-            }
-            catch (Exception) { }
+        //    //Envio de notificaciones push
+        //    try
+        //    {
+        //        if (!tokensFB.IsNullOrEmpty())
+        //        {
+        //            await SendFirebase(asunto, body, tokensFB.ToArray());
+        //        }
+        //    }
+        //    catch (Exception) { }
 
-            return true;
-        }
+        //    return true;
+        //}
 
     }
 

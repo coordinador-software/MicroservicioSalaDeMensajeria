@@ -18,6 +18,7 @@ namespace ChatAPI.Models.DB
         public bool ELIMINAR_SALAS { get; set; }
         public bool ELIMINAR_MENSAJES { get; set; }
         public bool ELIMINAR_ARCHIVOS { get; set; }
+        public bool ELIMINADO { get; set; }
         public virtual ICollection<SALAS> SALAS { get; set; }
 
     }

@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ChatAPI.Models.DB;
 using RHAPI.Interfaces;
-using static ChatAPI.Models.Classes;
+using static ChatAPI.Models.Clases;
+using ChatAPI.Models.DTO;
+using AutoMapper;
 
 namespace ChatAPI.Controllers
 {
@@ -16,12 +18,12 @@ namespace ChatAPI.Controllers
     public class SistemasController : ControllerBase
     {
         private readonly DBCHAT _db;
-        private readonly ISeguridad _seguridad;
+        private IMapper _iMapper;
 
-        public SistemasController(DBCHAT context, ISeguridad seguridad)
+        public SistemasController(DBCHAT context, IMapper iMapper)
         {
             _db = context;
-            _seguridad = seguridad;
+            _iMapper = iMapper;
         }
 
         // GET: api/Sistemas
@@ -35,27 +37,27 @@ namespace ChatAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<SISTEMAS>> GetSistemas(Guid id)
         {
-            var sISTEMAS = await _db.SISTEMAS.FindAsync(id);
+            var sistemas = await _db.SISTEMAS.FindAsync(id);
 
-            if (sISTEMAS == null)
+            if (sistemas == null)
             {
                 return NotFound();
             }
 
-            return sISTEMAS;
+            return sistemas;
         }
 
         // PUT: api/Sistemas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSistemas(Guid id, SISTEMAS sISTEMAS)
+        public async Task<IActionResult> PutSistemas(Guid id, SISTEMAS sistemas)
         {
-            if (id != sISTEMAS.SISTEMA_ID)
+            if (id != sistemas.SISTEMA_ID)
             {
                 return BadRequest();
             }
 
-            _db.Entry(sISTEMAS).State = EntityState.Modified;
+            _db.Entry(sistemas).State = EntityState.Modified;
 
             try
             {
@@ -79,25 +81,26 @@ namespace ChatAPI.Controllers
         // POST: api/Sistemas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<SISTEMAS>> PostSistemas(SISTEMAS sISTEMAS)
+        public async Task<ActionResult<SISTEMAS>> PostSistemas(SISTEMAS sistema)
         {
-            _db.SISTEMAS.Add(sISTEMAS);
+
+            _db.SISTEMAS.Add(sistema);
             await _db.SaveChangesAsync();
 
-            return CreatedAtAction("Sistema", new { id = sISTEMAS.SISTEMA_ID }, sISTEMAS);
+            return Ok(sistema);
         }
 
         // DELETE: api/Sistemas/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSistemas(Guid id)
         {
-            var sISTEMAS = await _db.SISTEMAS.FindAsync(id);
-            if (sISTEMAS == null)
+            var sistemas = await _db.SISTEMAS.FindAsync(id);
+            if (sistemas == null)
             {
                 return NotFound();
             }
 
-            _db.SISTEMAS.Remove(sISTEMAS);
+            sistemas.ELIMINADO = true;
             await _db.SaveChangesAsync();
 
             return Ok("Eliminado con exito");
@@ -106,15 +109,6 @@ namespace ChatAPI.Controllers
         private bool SistemasExists(Guid id)
         {
             return _db.SISTEMAS.Any(e => e.SISTEMA_ID == id);
-        }
-
-        [HttpGet("GetHolaMundo")]
-        public async Task<ActionResult<string>> GetHolaMundo()
-        {
-            REQUEST_TOKEN x = await _seguridad.GetJWT(Guid.Parse("ebb59fc8-c409-45aa-b22c-4f40d0aa1162"), "Alejandro Altuzar");
-            var a = Guid.Parse("ebb59fc8-c409-45aa-b22c-4f40d0aa1162");
-            var y = await _seguridad.GetInfoUsuario(a);
-            return x.TOKEN;
         }
     }
 }
